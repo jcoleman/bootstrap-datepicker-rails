@@ -151,6 +151,15 @@
 			o.daysOfWeekDisabled = $.map(o.daysOfWeekDisabled, function (d) {
 				return parseInt(d, 10);
 			});
+
+			switch (o.disableFocus) {
+				case true:
+				case 'true':
+					o.disableFocus = true;
+					break;
+				default:
+					o.disableFocus = false;
+			}
 		},
 		_events: [],
 		_secondaryEvents: [],
@@ -253,6 +262,9 @@
 		},
 
 		show: function(e) {
+			if (this.o.disableFocus) {
+				this.element.blur();
+			}
 			if (!this.isInline)
 				this.picker.appendTo('body');
 			this.picker.show();
@@ -1002,6 +1014,7 @@
 		calendarWeeks: false,
 		clearBtn: false,
 		daysOfWeekDisabled: [],
+		disableFocus: false,
 		endDate: Infinity,
 		forceParse: true,
 		format: 'mm/dd/yyyy',
